@@ -41,7 +41,7 @@ const reset = document.getElementsByClassName("reset")[0];
 let firstOperand = true; //working with first Operand
 let operand1 = "";
 let operand2 = "";
-let operation;
+let operation = "";
 let result = false; //Using result for more calculation
 let intermediateResult = ""; //Save intermediate results
 
@@ -66,25 +66,44 @@ numbers.forEach(numbers => numbers.addEventListener("click", function() {
     updateDisplay(" ");
 
     if (operand2 == "-") {
-      operand2 = -1;
+      operand2 = -1 * parseInt(numbers.innerText);
+    } else {
+      operand2 = (operand2 * 10 + parseInt(numbers.innerText));
     }
-    operand2 = (operand2 * 10 + parseInt(numbers.innerText));
+
     updateDisplay(operand2);
   }
 }));
 
 //Adding Functionality to operator keys
+let operatorCount = 0; // If counter == 1 => operand2 can become negative
 operators.forEach(operator => operator.addEventListener("click", function() {
 
-  //Negative numbers
+  //Negative Operand1
   if (operator.innerText == "-" && operand1 == "") {
     operand1 += "-";
     updateDisplay(operand1);
-  } else {
+  }
+
+  //Negative Operand2
+  else if (operatorCount != 0) {
+    operand2 += "-";
+    updateDisplay(operand2);
+    operatorCount--;
+  }
+
+  //Operation only when operand1 deklared
+  else if (operand1 != "") {
 
     if (operand2 != "") {
       intermediateResult = calculate(operation);
       updateDisplay(intermediateResult);
+    }
+
+    if (operatorCount == 0) {
+      operatorCount++;
+    } else {
+      operatorCount--;
     }
 
     operation = operator.innerText;
