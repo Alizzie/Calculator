@@ -1,0 +1,231 @@
+/*Theme 1*/
+.theme1 {
+  --background: hsl(222, 26%, 31%);
+  --keypadToggle: hsl(223, 31%, 20%);
+  --screen: hsl(224, 36%, 15%);
+  --delReset: hsl(225, 21%, 49%);
+  --delResetS: hsl(224, 28%, 35%);
+  --delResetH: #A2B2E1;
+  --equal: hsl(6, 63%, 50%);
+  --equalS: hsl(6, 70%, 34%);
+  --equalH: #F96B5B;
+  --key: hsl(30, 25%, 89%);
+  --keyS: hsl(28, 16%, 65%);
+  --keyH: white;
+  --numbers: hsl(221, 14%, 31%);
+  --text: white;
+  --eqC: white;
+}
+
+/*Theme 2*/
+.theme2{
+  --background: hsl(0, 0%, 90%);
+  --keypadToggle: hsl(0, 5%, 81%);
+  --screen: hsl(0, 0%, 93%);
+  --delReset: hsl(185, 42%, 37%);
+  --delResetS: hsl(185, 58%, 25%);
+  --delResetH: #62B5BC ;
+  --equal: hsl(25, 98%, 40%);
+  --equalS:  hsl(25, 99%, 27%);
+  --equalH: #FF8A38;
+  --key: hsl(45, 7%, 89%);
+  --keyS: hsl(35, 11%, 61%);
+  --keyH: white;
+  --numbers: hsl(60, 10%, 19%);
+  --text:hsl(60, 10%, 19%);
+  --eqC: white;
+}
+
+/* Theme 3*/
+.theme3{
+  --background: hsl(268, 75%, 9%);
+  --keypadToggle:hsl(268, 71%, 12%);
+  --screen: hsl(268, 71%, 12%);
+  --delReset: hsl(281, 89%, 26%);
+  --delResetS: hsl(285, 91%, 52%);
+  --delResetH: #8631AF;
+  --equal: hsl(176, 100%, 44%);
+  --equalS:  hsl(177, 92%, 70%);
+  --equalH: #93FFF8;
+  --key: hsl(268, 47%, 21%);
+  --keyS: hsl(290, 70%, 36%);
+  --keyH: #6C34AC;
+  --numbers: hsl(52, 100%, 62%);
+  --text:hsl(52, 100%, 62%);
+  --eqC: black;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: 'Spartan', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  transition: linear .3s;
+}
+
+span, p {
+  font-size: 12px;
+  text-transform: uppercase;
+  margin: 0 0 4% 0;
+}
+
+span {
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 48px;
+  text-align: right;
+  padding-right: 7%;
+}
+
+h2, h3 {
+  font-size: 32px;
+  text-align: center;
+  color: var(--numbers);
+}
+
+h3 {
+  font-size: 20px;
+  color: white;
+  text-transform: uppercase;
+  padding: 3% 0;
+}
+
+a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.container {
+  width: 540px;
+  margin: 7% auto;
+}
+
+/* Heading*/
+.calcHead {
+  width: 100%;
+  height: 44px;
+  margin-bottom: 3%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Theme*/
+.theme {
+  width: 144px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.switcher {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 144px;
+}
+
+label {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 66px;
+  height: 26px;
+  margin: auto;
+  background: var(--keypadToggle);
+  border-radius: 50px;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background-color: var(--equal);
+  border-radius: 50px;
+}
+
+.slider::-webkit-slider-thumb:active {
+  background-color: var(--equalH);
+}
+
+/* Calculator */
+.screen {
+  background-color: var(--screen);
+  border-radius: 10px;
+  height: 128px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Keyboard*/
+.keyboard {
+  margin-top: 4%;
+  background-color: var(--keypadToggle);
+  border-radius: 10px;
+  height: 426px;
+  padding: 5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 6% 5.5%;
+}
+
+.key, .operator, .equal, .del, .reset{
+  font-family: 'Spartan', sans-serif;
+  border-radius: 10px;
+  border: 0;
+  background: var(--key);
+  box-shadow: 0 4px var(--keyS);
+  cursor: pointer;
+}
+
+.key:active, .operator:active {
+  background: var(--keyH);
+}
+
+.equal {
+  grid-column: 3/5;
+  background-color: var(--equal);
+  box-shadow: 0 4px var(--equalS);
+}
+
+.equal:active {
+  background-color: var(--equalH);
+}
+
+.eqColor {
+  color: var(--eqC);
+}
+
+.del, .reset {
+  background-color: var(--delReset);
+  box-shadow: 0 4px var(--delResetS);
+}
+
+.del:active, .reset:active {
+  background-color: var(--delResetH);
+}
+
+.reset {
+  grid-column: 1/3;
+}
+
+.attribution {
+  font-size: 9px;
+  text-align: center;
+}
