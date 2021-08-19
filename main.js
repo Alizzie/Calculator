@@ -3,19 +3,6 @@ const colors = document.documentElement;
 const toggler = document.getElementById("slider");
 const display = document.getElementsByClassName("displayText")[0];
 
-function checkTheme(value) {
-  if (value == "1") {
-    colors.className = "theme2";
-    localStorage.setItem('theme', "1");
-  } else if (value == "2") {
-    colors.className = "theme3";
-    localStorage.setItem('theme', "2");
-  } else {
-    colors.className = "theme1";
-    localStorage.setItem('theme', "0");
-  }
-}
-
 toggler.addEventListener("click", function() {
   checkTheme(toggler.value);
 })
@@ -30,6 +17,7 @@ window.onload = function test() {
   }
 
   setTimeout(() => display.innerText = " ", 500);
+
 }
 
 //Clearing local Storage
@@ -57,89 +45,6 @@ let operation;
 let result = false; //Using result for more calculation
 let intermediateResult = ""; //Save intermediate results
 
-//Clearing display function
-function clear() {
-  operand1 = "";
-  operand2 = "";
-  operation = "";
-  intermediateResult = "";
-  firstOperand = true;
-  display.innerText = "";
-}
-
-//Deleting Number function
-function deleteNumber() {
-
-  if (firstOperand) {
-    operand1 = operand1.toString().slice(0, -1);
-
-    if (operand1 == "") {
-      operand1 = parseInt("0");
-    }
-    return operand1;
-
-  } else {
-
-    operand2 = operand2.toString().slice(0, -1);
-    if (operand2 == "") {
-      operand2 = parseInt("0");
-    };
-    return operand2;
-  }
-}
-
-//Calculation function
-function calculate(op) {
-  switch (op) {
-    case "+":
-      operand1 = parseFloat(operand1) + parseFloat(operand2);
-      break;
-    case "-":
-      operand1 = operand1 - operand2;
-      break;
-    case "x":
-      operand1 = operand1 * operand2;
-      break;
-    case "/":
-      operand1 = operand1 / operand2;
-      break;
-    default:
-      break;
-  }
-
-  //Display result, result = operand1
-  firstOperand = true;
-  result = true;
-  operand2 = "";
-  return operand1;
-}
-
-//Checking length
-function checkLength(num) {
-
-  if (num.toString().length > 12) {
-    num = num.toString().slice(0, 12);
-
-    if (firstOperand) {
-      operand1 = num;
-    } else {
-      operand2 = num;
-    }
-
-    return num;
-  } else {
-    return num;
-  }
-}
-
-//Update Screen and screen length function
-function updateDisplay(num) {
-
-  num = checkLength(num);
-  display.innerText = num;
-}
-
-
 //Adding Functionality to the number Keys
 numbers.forEach(numbers => numbers.addEventListener("click", function() {
 
@@ -149,10 +54,20 @@ numbers.forEach(numbers => numbers.addEventListener("click", function() {
     operand1 = numbers.innerText;
     updateDisplay(operand1);
   } else if (firstOperand) {
-    operand1 = (operand1 * 10 + parseInt(numbers.innerText));
+
+    if (operand1 == "-") {
+      operand1 = -1 * parseInt(numbers.innerText);
+    } else {
+      operand1 = (operand1 * 10 + parseInt(numbers.innerText));
+    }
+
     updateDisplay(operand1);
   } else {
     updateDisplay(" ");
+
+    if (operand2 == "-") {
+      operand2 = -1;
+    }
     operand2 = (operand2 * 10 + parseInt(numbers.innerText));
     updateDisplay(operand2);
   }
@@ -161,9 +76,21 @@ numbers.forEach(numbers => numbers.addEventListener("click", function() {
 //Adding Functionality to operator keys
 operators.forEach(operator => operator.addEventListener("click", function() {
 
-  operation = operator.innerText;
-  firstOperand = false;
-  result = false;
+  //Negative numbers
+  if (operator.innerText == "-" && operand1 == "") {
+    operand1 += "-";
+    updateDisplay(operand1);
+  } else {
+
+    if (operand2 != "") {
+      intermediateResult = calculate(operation);
+      updateDisplay(intermediateResult);
+    }
+
+    operation = operator.innerText;
+    firstOperand = false;
+    result = false;
+  }
 }));
 
 //Adding Functionality to del and reset Key
