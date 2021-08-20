@@ -1,5 +1,5 @@
 // Theme Toggler
-const colors = document.documentElement;
+const colors = document.firstElementChild.lastElementChild;
 const toggler = document.getElementById("slider");
 const display = document.getElementsByClassName("displayText")[0];
 
