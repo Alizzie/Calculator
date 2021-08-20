@@ -192,6 +192,9 @@ label {
   background: var(--key);
   box-shadow: 0 4px var(--keyS);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .key:active, .operator:active {

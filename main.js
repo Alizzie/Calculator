@@ -1,4 +1,4 @@
-// Theme Toggler
+//<<<<---------------- Theme Toggler & Session Storage ----------------->>>>>>
 const colors = document.firstElementChild.lastElementChild;
 const toggler = document.getElementById("slider");
 const display = document.getElementsByClassName("displayText")[0];
@@ -7,30 +7,21 @@ toggler.addEventListener("click", function() {
   checkTheme(toggler.value);
 })
 
-//Situation: Returning to the page
+//<<<<---------------------- Session Storage -------------------------->>>>>>
+
+//Situation: Reloading the page
 window.onload = function test() {
-  if (localStorage.getItem("theme") == null) {
+  if (sessionStorage.getItem("theme") == null) {
     colors.className = "theme1";
   } else {
-    toggler.value = localStorage.getItem("theme");
+    toggler.value = sessionStorage.getItem("theme");
     checkTheme(toggler.value);
   }
-
   setTimeout(() => display.innerText = " ", 500);
-
 }
 
-//Clearing local Storage
-document.addEventListener("keydown", function(event) {
-  if (event.key == "Backspace") {
-    window.localStorage.clear();
-    toggler.value = 0;
-    colors.className = "theme1";
-    alert("Local Storage has been deleted");
-  }
-})
-
-//Calculator Keys
+//<<<<---------------------- Calculator Variables-------------------------->>>>>
+//Necessary Calculator Keys
 const numbers = Array.from(document.getElementsByClassName("key"));
 const operators = Array.from(document.getElementsByClassName("operator"));
 const equalKey = document.getElementsByClassName("equal")[0];
@@ -44,21 +35,23 @@ let operand2 = "";
 let operation = "";
 let result = false; //Using result for more calculation
 let intermediateResult = ""; //Save intermediate results
+let secondOp = false; // true => operand2 can become negative
 
-//Adding Functionality to the number Keys
-numbers.forEach(numbers => numbers.addEventListener("click", function() {
+//<<<<<------------- Calculator with clicking Functionality ------------->>>>>
+//Number Keys
+numbers.forEach(number => number.addEventListener("click", () => {
 
   if (result) {
     result = false;
     intermediateResult = "";
-    operand1 = numbers.innerText;
+    operand1 = number.innerText;
     updateDisplay(operand1);
   } else if (firstOperand) {
 
     if (operand1 == "-") {
-      operand1 = -1 * parseInt(numbers.innerText);
+      operand1 = -1 * parseInt(number.innerText);
     } else {
-      operand1 = (operand1 * 10 + parseInt(numbers.innerText));
+      operand1 = (operand1 + number.innerText);
     }
 
     updateDisplay(operand1);
@@ -66,17 +59,16 @@ numbers.forEach(numbers => numbers.addEventListener("click", function() {
     updateDisplay(" ");
 
     if (operand2 == "-") {
-      operand2 = -1 * parseInt(numbers.innerText);
+      operand2 = -1 * parseInt(number.innerText);
     } else {
-      operand2 = (operand2 * 10 + parseInt(numbers.innerText));
+      operand2 = (operand2 + number.innerText);
     }
 
     updateDisplay(operand2);
   }
 }));
-
-//Adding Functionality to operator keys
-let operatorCount = 0; // If counter == 1 => operand2 can become negative
+//----------------------------------------------------------------------------
+//Operator keys
 operators.forEach(operator => operator.addEventListener("click", function() {
 
   //Negative Operand1
@@ -86,10 +78,11 @@ operators.forEach(operator => operator.addEventListener("click", function() {
   }
 
   //Negative Operand2
-  else if (operatorCount != 0 && operator.innerText == "-") {
+  else if (secondOp && operator.innerText == "-") {
     operand2 += "-";
     updateDisplay(operand2);
-    operatorCount--;
+    alert("true -> false");
+    secondOp = false;
   }
 
   //Operation only when operand1 deklared
@@ -100,10 +93,9 @@ operators.forEach(operator => operator.addEventListener("click", function() {
       updateDisplay(intermediateResult);
     }
 
-    if (operatorCount == 0) {
-      operatorCount++;
-    } else {
-      operatorCount--;
+    if (secondOp == false) {
+      alert("false -> true");
+      secondOp = true;
     }
 
     operation = operator.innerText;
@@ -112,9 +104,52 @@ operators.forEach(operator => operator.addEventListener("click", function() {
   }
 }));
 
-//Adding Functionality to del and reset Key
+//----------------------------------------------------------------------------
+//Del and reset Key
 reset.addEventListener("click", () => clear());
 del.addEventListener("click", () => updateDisplay(deleteNumber()));
 
-//Adding Functionality to equal Key
+//Equal Key
 equalKey.addEventListener("click", () => updateDisplay(calculate(operation)));
+
+
+//<<<<<----------- Calculator with Keyboard Functionality ------------->>>>
+document.addEventListener("keyup", (e) => {
+
+  //Number keys
+  if (isFinite(e.key) || e.key == ".") {
+    console.log(e);
+    for (let i = 0; i < numbers.length; i++) {
+      if (e.key == numbers[i].innerText) {
+        numbers[i].click();
+      }
+    }
+  }
+
+  //Remaining keys
+  switch (e.key) {
+    case "Backspace":
+      del.click();
+      break;
+    case "=":
+    case "Enter":
+      equalKey.click();
+      break;
+    case " ":
+      reset.click();
+      break;
+    case "+":
+      operators[0].click();
+      break;
+    case "-":
+      operators[1].click();
+      break;
+    case "/":
+      operators[2].click();
+      break;
+    case "x":
+    case "*":
+      operators[3].click();
+      break;
+  }
+});

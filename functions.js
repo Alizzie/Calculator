@@ -2,17 +2,17 @@
 function checkTheme(value) {
   if (value == "1") {
     colors.className = "theme2";
-    localStorage.setItem('theme', "1");
+    sessionStorage.setItem('theme', "1");
   } else if (value == "2") {
     colors.className = "theme3";
-    localStorage.setItem('theme', "2");
+    sessionStorage.setItem('theme', "2");
   } else {
     colors.className = "theme1";
-    localStorage.setItem('theme', "0");
+    sessionStorage.setItem('theme', "0");
   }
 }
 
-//<<<---------------- Calculator ----------------->>>>>>
+//<<<--------------------- Calculator ----------------------->>>>>>
 
 //Clearing display function
 function clear() {
@@ -23,37 +23,36 @@ function clear() {
   display.innerText = "";
   firstOperand = true;
   result = false;
+  secondOp = false;
 }
 
 //Deleting Number function
 function deleteNumber() {
-
   if (firstOperand) {
     operand1 = operand1.toString().slice(0, -1);
-
-    if (operand1 == "") {
-      operand1 = parseInt("0");
-    }
     return operand1;
-
   } else {
 
+    if (operand2 == "-") {
+      secondOp = true;
+    }
+    
     operand2 = operand2.toString().slice(0, -1);
-    if (operand2 == "") {
-      operand2 = parseInt("0");
-    };
     return operand2;
   }
 }
 
 //Calculation function
 function calculate(op) {
+  console.log(operand1);
+  console.log(operand2);
   switch (op) {
     case "+":
       operand1 = parseFloat(operand1) + parseFloat(operand2);
       break;
     case "-":
       operand1 = operand1 - operand2;
+      console.log(operand1);
       break;
     case "x":
       operand1 = operand1 * operand2;
@@ -69,6 +68,7 @@ function calculate(op) {
   firstOperand = true;
   result = true;
   operand2 = "";
+  operatorCount = 0;
   return operand1;
 }
 
