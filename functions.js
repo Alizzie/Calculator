@@ -36,7 +36,7 @@ function deleteNumber() {
     if (operand2 == "-") {
       secondOp = true;
     }
-    
+
     operand2 = operand2.toString().slice(0, -1);
     return operand2;
   }
@@ -44,8 +44,7 @@ function deleteNumber() {
 
 //Calculation function
 function calculate(op) {
-  console.log(operand1);
-  console.log(operand2);
+
   switch (op) {
     case "+":
       operand1 = parseFloat(operand1) + parseFloat(operand2);
@@ -69,6 +68,7 @@ function calculate(op) {
   result = true;
   operand2 = "";
   operatorCount = 0;
+  secondOp = false;
   return operand1;
 }
 

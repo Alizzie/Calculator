@@ -80,9 +80,8 @@ operators.forEach(operator => operator.addEventListener("click", function() {
   //Negative Operand2
   else if (secondOp && operator.innerText == "-") {
     operand2 += "-";
-    updateDisplay(operand2);
-    alert("true -> false");
     secondOp = false;
+    updateDisplay(operand2);
   }
 
   //Operation only when operand1 deklared
@@ -94,7 +93,6 @@ operators.forEach(operator => operator.addEventListener("click", function() {
     }
 
     if (secondOp == false) {
-      alert("false -> true");
       secondOp = true;
     }
 
@@ -118,7 +116,6 @@ document.addEventListener("keyup", (e) => {
 
   //Number keys
   if (isFinite(e.key) || e.key == ".") {
-    console.log(e);
     for (let i = 0; i < numbers.length; i++) {
       if (e.key == numbers[i].innerText) {
         numbers[i].click();
