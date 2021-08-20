@@ -76,11 +76,20 @@ operators.forEach(operator => operator.addEventListener("click", function() {
     operand1 += "-";
     updateDisplay(operand1);
   }
+  //double negative Operand1
+  else if (operand1 == "-" && operator.innerText == "-") {
+    operand1 = "";
+    updateDisplay(operand1);
+  }
 
   //Negative Operand2
-  else if (secondOp && operator.innerText == "-") {
+  else if (operator.innerText == "-" && secondOp && operand2 == "") {
     operand2 += "-";
-    secondOp = false;
+    updateDisplay(operand2);
+  }
+  //double negative operand2
+  else if (operand2 == "-" && operator.innerText == "-"){
+    operand2 = "";
     updateDisplay(operand2);
   }
 
@@ -109,7 +118,6 @@ del.addEventListener("click", () => updateDisplay(deleteNumber()));
 
 //Equal Key
 equalKey.addEventListener("click", () => updateDisplay(calculate(operation)));
-
 
 //<<<<<----------- Calculator with Keyboard Functionality ------------->>>>
 document.addEventListener("keyup", (e) => {
