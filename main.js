@@ -86,7 +86,7 @@ operators.forEach(operator => operator.addEventListener("click", function() {
   }
 
   //Negative Operand2
-  else if (operatorCount != 0) {
+  else if (operatorCount != 0 && operator.innerText == "-") {
     operand2 += "-";
     updateDisplay(operand2);
     operatorCount--;
