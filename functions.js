@@ -94,5 +94,5 @@ function checkLength(num) {
 function updateDisplay(num) {
 
   num = checkLength(num);
-  display.innerText = num;
+  display.innerText = parseFloat(num);
 }
