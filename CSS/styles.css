@@ -232,3 +232,37 @@ label {
   font-size: 9px;
   text-align: center;
 }
+
+@media all and (max-width: 450px){
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  .container {
+    width: 327px;
+  }
+
+  .calcHead {
+    margin-bottom: 5%;
+  }
+
+  .screen {
+    height: 88px;
+  }
+
+  .keyboard {
+    margin-top: 5%;
+    height: 388px;
+    grid-gap: 5% 6%;
+  }
+
+}
