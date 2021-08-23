@@ -51,7 +51,7 @@ numbers.forEach(number => number.addEventListener("click", () => {
     if (operand1 == "-") {
       operand1 = -1 * parseInt(number.innerText);
     } else {
-      operand1 = (operand1 + number.innerText);
+      operand1 = (operand1.toString() + number.innerText); 
     }
 
     updateDisplay(operand1);
