@@ -17,7 +17,7 @@ window.onload = function test() {
     toggler.value = sessionStorage.getItem("theme");
     checkTheme(toggler.value);
   }
-  setTimeout(() => display.innerText = " ", 500);
+  setTimeout(() => display.innerText = " ", 1000);
 }
 
 //<<<<---------------------- Calculator Variables-------------------------->>>>>
@@ -51,7 +51,7 @@ numbers.forEach(number => number.addEventListener("click", () => {
     if (operand1 == "-") {
       operand1 = -1 * parseInt(number.innerText);
     } else {
-      operand1 = (operand1.toString() + number.innerText); 
+      operand1 = (operand1.toString() + number.innerText);
     }
 
     updateDisplay(operand1);
