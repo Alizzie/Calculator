@@ -86,7 +86,7 @@ function checkLength(num) {
 
     return num;
   } else {
-    return parseFloat(num);
+    return num;
   }
 
 }
