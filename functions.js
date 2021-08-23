@@ -76,7 +76,7 @@ function calculate(op) {
 function checkLength(num) {
 
   if (num.toString().length > 12) {
-    num = num.toString().slice(0, 12);
+    num = parseFloat(num).toExponential(6);
 
     if (firstOperand) {
       operand1 = num;
@@ -86,13 +86,14 @@ function checkLength(num) {
 
     return num;
   } else {
-    return num;
+    return parseFloat(num);
   }
+
 }
 
 //Update Screen and screen length function
 function updateDisplay(num) {
 
   num = checkLength(num);
-  display.innerText = parseFloat(num);
+  display.innerText = num;
 }
