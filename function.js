@@ -12,3 +12,23 @@ function checkTheme(value) {
     sessionStorage.setItem("theme", "0");
   }
 }
+
+//<<<<<<<------------------ Calculator ------------------->>>>>>>>
+function addNum(operand, num) {
+  console.log("Operand: " + operand + " Type: " + typeof operand);
+  console.log("Nummer: " + num + " Type: " + typeof num);
+
+  return Number(operand+num);
+
+}
+
+
+//----------------------------Display------------------------->>>>>>>>>
+function updateDisplay() {
+
+  if(firstOperand){
+    display.innerText = operand1;
+  } else {
+    display.innerText = operand2;
+  }
+}
