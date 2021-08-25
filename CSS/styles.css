@@ -185,39 +185,50 @@ label {
   grid-gap: 6% 5.5%;
 }
 
-.key, .operator, .equal, .del, .reset{
+button{
   font-family: 'Spartan', sans-serif;
+  font-weight: bold;
   border-radius: 10px;
   border: 0;
-  background: var(--key);
-  box-shadow: 0 4px var(--keyS);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.key:active, .operator:active {
+.key, .operator, .dot{
+  font-size: 32px;
+  text-align: center;
+  color: var(--numbers);
+  background: var(--key);
+  box-shadow: 0 4px var(--keyS);
+}
+
+.key:active, .operator:active, .dot:active {
   background: var(--keyH);
+}
+
+.equal, .del, .reset {
+  font-size: 20px;
+  text-transform: uppercase;
+  padding: 3% 0;
 }
 
 .equal {
   grid-column: 3/5;
   background-color: var(--equal);
   box-shadow: 0 4px var(--equalS);
+  color: var(--eqC);
 }
 
 .equal:active {
   background-color: var(--equalH);
 }
 
-.eqColor {
-  color: var(--eqC);
-}
-
 .del, .reset {
   background-color: var(--delReset);
   box-shadow: 0 4px var(--delResetS);
+  color: white;
 }
 
 .del:active, .reset:active {
