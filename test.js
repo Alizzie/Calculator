@@ -4,10 +4,9 @@ const toggler = document.getElementById("slider");
 const display = document.getElementsByClassName("displayText")[0];
 const togNum = Array.from(document.getElementsByTagName("Span"));
 
-togNum.forEach(num => num.addEventListener("touchstart", (e) => {
+togNum.forEach(num => num.addEventListener("click", (e) => {
   console.log(e.path[0].innerText);
   toggler.value = Number(e.path[0].innerText) - 1;
-  alert("gak");
   console.log("Toggler Value: " + toggler.value);
   }
 ));
