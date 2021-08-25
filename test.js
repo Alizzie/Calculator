@@ -11,12 +11,14 @@ togNum.forEach(num => num.addEventListener("click", (e) => {
   }
 ));
 
-/* toggler.addEventListener("click", () => {
+toggler.addEventListener("click", () => {
   console.log("Toggler Value: " + toggler.value);
   checkTheme(toggler.value);
-})*/
+})
+
 
 //<<<<---------------------- Session Storage -------------------------->>>>>>
+
 //Situation: Reloading the page
 window.onload = function test() {
   if (sessionStorage.getItem("theme") == null) {
