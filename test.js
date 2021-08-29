@@ -56,7 +56,7 @@ numbers.forEach(num => num.addEventListener("click", (e) => {
   saveOperand();
 
 }));
-
+//----------------------------------------------------------------------------------------
 dot.addEventListener("click", () => {
 
   if (intOperand){
@@ -69,5 +69,19 @@ dot.addEventListener("click", () => {
     }
     updateDisplay();
   }
-
 });
+//--------------------------------------------------------------------------------------
+operators.forEach(op => op.addEventListener("click", (e) => {
+  console.log("Operator: " + e.srcElement.innerText + " Type: " + typeof e.srcElement.innerText);
+
+  operator = e.srcElement.innerText;
+  firstOperand = false;
+  intOperand = true; //For Operand2
+  number = "";
+
+}))
+//----------------------------------------------------------------------------
+equal.addEventListener("click", () => {
+  calculate(operator);
+  updateDisplay();
+})
