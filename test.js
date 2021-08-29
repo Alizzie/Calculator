@@ -6,8 +6,7 @@ const togNum = Array.from(document.getElementsByTagName("Span"));
 
 togNum.forEach(num => num.addEventListener("click", (e) => {
   toggler.value = Number(e.path[0].innerText) - 1;
-  }
-));
+}));
 
 toggler.addEventListener("click", () => {
   checkTheme(toggler.value);
@@ -38,25 +37,37 @@ const del = document.getElementsByClassName("del")[0];
 let operand1 = 0;
 let operand2 = 0;
 let operator = "";
+let number = "";
 
 let firstOperand = true;
+let intOperand = true;
 
 //<------------------ Add Functionality ------------->>>>>
 numbers.forEach(num => num.addEventListener("click", (e) => {
+  //Zusammenaddieren addNum(operand, string) -> return Num as Number
+  // Speichert neuen Wert
+  // Update Display
 
   let num = e.srcElement.innerText;
   console.log("Number: " + num + " Type: " + typeof num);
 
-  if(firstOperand){
-    operand1 = addNum(operand1, num);
-    console.log("Operand1: " + operand1);
-  } else {
-    operand2 = addNum(operand2, num);
-    console.log("Operand2: " + operand2);
+  number = addNum(num);
+  updateDisplay();
+  saveOperand();
+
+}));
+
+dot.addEventListener("click", () => {
+
+  if (intOperand){
+    intOperand = false;
+
+    if (number == "") {
+      number = "0.";
+    } else {
+      number = number + ".";
+    }
+    updateDisplay();
   }
 
-  updateDisplay();
-  //Zusammenaddieren addNum(operand, string) -> return Num as Number
-  // Speichert neuen Wert
-  // Update Display
-}));
+});

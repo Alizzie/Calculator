@@ -14,21 +14,25 @@ function checkTheme(value) {
 }
 
 //<<<<<<<------------------ Calculator ------------------->>>>>>>>
-function addNum(operand, num) {
-  console.log("Operand: " + operand + " Type: " + typeof operand);
+function addNum(num) {
+  console.log("Number: " + number + " Type: " + typeof number);
   console.log("Nummer: " + num + " Type: " + typeof num);
 
-  return Number(operand+num);
-
+  return String(number + num);
 }
 
+function saveOperand() {
+
+  if (firstOperand){
+    operand1 = Number(number);
+  } else {
+    operand2 = Number(number);
+  }
+}
 
 //----------------------------Display------------------------->>>>>>>>>
 function updateDisplay() {
+  console.log("Display Type: " + typeof number);
+  display.innerText = number;
 
-  if(firstOperand){
-    display.innerText = operand1;
-  } else {
-    display.innerText = operand2;
-  }
 }
