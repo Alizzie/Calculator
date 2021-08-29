@@ -12,7 +12,6 @@ toggler.addEventListener("click", () => {
   checkTheme(toggler.value);
 })
 
-
 //<<<<---------------------- Session Storage -------------------------->>>>>>
 
 //Situation: Reloading the page
@@ -41,6 +40,7 @@ let number = "";
 
 let firstOperand = true;
 let intOperand = true;
+let negativNum = false;
 
 //<------------------ Add Functionality ------------->>>>>
 numbers.forEach(num => num.addEventListener("click", (e) => {
@@ -52,9 +52,8 @@ numbers.forEach(num => num.addEventListener("click", (e) => {
   console.log("Number: " + num + " Type: " + typeof num);
 
   number = addNum(num);
-  updateDisplay();
   saveOperand();
-
+  updateDisplay();
 }));
 //----------------------------------------------------------------------------------------
 dot.addEventListener("click", () => {
@@ -74,14 +73,36 @@ dot.addEventListener("click", () => {
 operators.forEach(op => op.addEventListener("click", (e) => {
   console.log("Operator: " + e.srcElement.innerText + " Type: " + typeof e.srcElement.innerText);
 
-  operator = e.srcElement.innerText;
-  firstOperand = false;
-  intOperand = true; //For Operand2
-  number = "";
+  if (number == "" && e.srcElement.innerText == "-"){
+    number = "-";
+    updateDisplay();
+  } else if (number == "-" && e.srcElement.innerText == "-"){
+    number = "";
+    updateDisplay();
+  } else {
+    operator = e.srcElement.innerText;
+    firstOperand = false;
+    intOperand = true; //For Operand2
+    number = "";
+  }
 
 }))
 //----------------------------------------------------------------------------
 equal.addEventListener("click", () => {
   calculate(operator);
+  console.log("Result: " + number);
+  saveOperand();
+  console.log("Operand1: " + operand1 + " Operand2: " + operand2 + " Operator: " + operator);
   updateDisplay();
 })
+//-----------------------------------------------------------------------------
+reset.addEventListener("click", () => {
+  clear();
+  updateDisplay();
+});
+//----------------------------------------------------------------------------
+del.addEventListener("click", () => {
+  number = delNum();
+  saveOperand();
+  updateDisplay();
+});

@@ -50,6 +50,23 @@ function calculate(op) {
       break;
   }
   console.log("Nummer: " + number + " Type: " + typeof number);
+  firstOperand = true;
+  intOperand = true;
+}
+
+//---------------------------Reset/ Del --------------------------->>>>>>
+function clear() {
+  firstOperand = true;
+  intOperand = true;
+  operand1 = 0;
+  operand2 = 0;
+  operator = "";
+  number = "";
+}
+
+function delNum() {
+  console.log("Nummer: " + number + " Länge: " + number.length);
+  return number.slice(0,-1);
 }
 
 //----------------------------Display------------------------->>>>>>>>>
