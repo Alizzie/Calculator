@@ -1,76 +1,157 @@
-//<<<<----------- Theme Toggler -------------------->>>>>>>
-function checkTheme(value) {
+//<<<<<<------------------ Calculator  -------------------->>>>>>>
+const numbers = Array.from(document.getElementsByClassName("key"));
+const operators = Array.from(document.getElementsByClassName("operator"));
+const equal = document.getElementsByClassName("equal")[0];
+const reset = document.getElementsByClassName("reset")[0];
+const del = document.getElementsByClassName("del")[0];
 
-  if (value == "1") {
-    colors.className = "theme2";
-    sessionStorage.setItem("theme", "1");
-  } else if (value == "2") {
-    colors.className = "theme3";
-    sessionStorage.setItem("theme", "2");
-  } else {
-    colors.className = "theme1";
-    sessionStorage.setItem("theme", "0");
+let pOperand = ""; //Previous operand
+let cOperand = ""; //current Operand
+let operator = undefined;
+let result = "";
+
+class Calculator {
+  constructor(cOperand, pOperand, operator, result) {
+    this.pOperand = pOperand;
+    this.cOperand = cOperand;
+    this.operator = operator;
+    this.result = result;
+  }
+
+  addNum(number) {
+
+    if(this.pOperand == this.result && this.result !== ""){
+      this.result = "";
+      this.cOperand = "";
+    }
+
+    if (this.cOperand == this.result && this.result !== "") {
+      this.cOperand = number;
+      this.result = "";
+    }
+    else if ((this.cOperand == "" || this.cOperand == "-") && number == ".") {
+      this.cOperand = "0.";
+    }
+    else if (number === "." && this.cOperand.includes(".") || this.cOperand.length == 14) {
+      return;
+    }
+    else if (this.cOperand == "0"){
+      this.cOperand = number;
+    }
+    else {
+      this.cOperand = String(this.cOperand) + String(number);
+    }
+  }
+
+  setOperation(operator) {
+
+    if(this.pOperand == this.result && this.pOperand !== ""){
+      this.operator = operator;
+      this.cOperand = "";
+      this.result = "";
+      return;
+    }
+
+    if (this.cOperand === "" && operator == "-") {
+      this.cOperand = "-";
+      this.updateDisplay();
+    } else if (this.cOperand == "-" && operator == "-") {
+      this.cOperand = "";
+      this.updateDisplay();
+    } else if (this.cOperand === "") {
+      return;
+    } else {
+
+      if (this.pOperand != "") {
+        this.calculate();
+        this.updateDisplay();
+      }
+
+      this.operator = operator;
+      this.pOperand = this.cOperand;
+      this.cOperand = "";
+    }
+  }
+
+  calculate() {
+
+    let current = Number(this.cOperand);
+    let prev = Number(this.pOperand);
+
+    switch (this.operator) {
+      case "+":
+        this.result = current + prev;
+        break;
+      case "-":
+        this.result = prev-current;
+        break;
+      case "x":
+        this.result = prev * current;
+        break;
+      case "/":
+        this.result = prev / current;
+        break;
+      default:
+        return;
+    }
+
+
+    if (String(this.result).length > 14) {
+      this.result = Number(this.result).toExponential(8);
+    }
+
+    display.innerText = this.result;
+    this.pOperand = this.result;
+  }
+
+  del() {
+
+    if (this.pOperand == this.result && this.result !== ""){
+      this.cOperand = "";
+      this.result = "";
+      return;
+    }
+
+    if(this.cOperand.slice(0,-1) == ""){
+      this.cOperand = "0";
+    } else {
+      this.cOperand = this.cOperand.slice(0, -1);
+    }
+  }
+
+  clear() {
+    this.cOperand = "";
+    this.pOperand = "";
+    this.operator = undefined;
+  }
+
+  updateDisplay() {
+    display.innerText = this.cOperand.toString();
   }
 }
 
-//<<<<<<<------------------ Calculator ------------------->>>>>>>>
-function addNum(num) {
-  console.log("Number: " + number + " Type: " + typeof number);
-  console.log("Nummer: " + num + " Type: " + typeof num);
-  return String(number + num);
-}
+const calculator = new Calculator(cOperand, pOperand, operator, result);
 
-function saveOperand() {
-  if (firstOperand) {
-    operand1 = Number(number);
-  } else {
-    operand2 = Number(number);
-  }
-}
-
-function calculate(op) {
-  console.log("Operand1: " + operand1 + " Type: " + typeof operand1);
-  console.log("Operand2: " + operand2 + " Type: " + typeof operand2);
-
-  switch (op) {
-    case "+":
-      number = String(operand1 + operand2);
-      break;
-    case "-":
-      number = String(operand1 - operand2);
-      break;
-    case "x":
-      number = String(operand1 * operand2);
-      break;
-    case "/":
-      number = String(operand1 / operand2);
-      break;
-    default:
-      display.innerText = "Error";
-      break;
-  }
-  console.log("Nummer: " + number + " Type: " + typeof number);
-  firstOperand = true;
-  intOperand = true;
-}
-
-//---------------------------Reset/ Del --------------------------->>>>>>
-function clear() {
-  firstOperand = true;
-  intOperand = true;
-  operand1 = 0;
-  operand2 = 0;
-  operator = "";
-  number = "";
-}
-
-function delNum() {
-  console.log("Nummer: " + number + " Länge: " + number.length);
-  return number.slice(0,-1);
-}
-
-//----------------------------Display------------------------->>>>>>>>>
-function updateDisplay() {
-  console.log("Display Type: " + typeof number);
-  display.innerText = number;
-}
+//<------------------ Add Functionality to Keys ------------->>>>>
+numbers.forEach(button => button.addEventListener("click", () => {
+  calculator.addNum(button.innerText);
+  calculator.updateDisplay();
+}));
+//-------------------------------------------------------------------------------
+operators.forEach(button => button.addEventListener("click", () => {
+  calculator.setOperation(button.innerText);
+}))
+//----------------------------------------------------------------------------
+equal.addEventListener("click", () => {
+  calculator.calculate();
+})
+//-----------------------------------------------------------------------------
+reset.addEventListener("click", () => {
+  calculator.clear();
+  calculator.updateDisplay();
+});
+//----------------------------------------------------------------------------
+del.addEventListener("click", () => {
+  calculator.del();
+  calculator.updateDisplay();
+});
