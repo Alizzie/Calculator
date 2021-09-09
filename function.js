@@ -30,7 +30,7 @@ class Calculator {
       this.result = "";
     }
     else if ((this.cOperand == "" || this.cOperand == "-") && number == ".") {
-      this.cOperand = "0.";
+      this.cOperand = String(this.cOperand) + "0.";
     }
     else if (number === "." && this.cOperand.includes(".") || this.cOperand.length == 14) {
       return;
